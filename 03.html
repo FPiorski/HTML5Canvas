@@ -1,0 +1,75 @@
+<head>
+<style>
+#lel {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+</style>
+</head>
+<body>
+<canvas id="lel" width=1 height=1></canvas>
+<script>
+var context = document.getElementsByTagName('canvas')[0].getContext('2d');
+
+var p=[[],[],[]];
+var x=0,y=0;
+p[0][0]=context.canvas.width/2;
+p[0][1]=0;
+p[1][0]=0;
+p[1][1]=context.canvas.height;
+p[2][0]=context.canvas.width;
+p[2][1]=context.canvas.height;
+x=p[0][0];
+y=p[0][1];
+fit();
+function step(){
+context.fillStyle = 'rgba(255,0,0,0.98)';
+context.fillRect(x,y,1,1);
+var k=Math.floor(Math.random()*3);
+x+=(p[k][0]-x)/2;
+y+=(p[k][1]-y)/2;
+}
+blank();
+setInterval(step, 0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+window.onresize=fit;
+function fit() {
+if (window.innerHight>window.innerWidth){
+ context.canvas.width = window.innerWidth;
+ context.canvas.height = window.innerWidth;
+}else{
+ context.canvas.width = window.innerHeight;
+ context.canvas.height = window.innerHeight;
+}
+p[0][0]=context.canvas.width/2;
+p[0][1]=0;
+p[1][0]=0;
+p[1][1]=context.canvas.height;
+p[2][0]=context.canvas.width;
+p[2][1]=context.canvas.height;
+x=p[0][0];
+y=p[0][1];
+}
+ function blank() {
+   context.fillStyle = 'rgba(0,0,0,1)';
+   context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+ }
+</script>
+</body>

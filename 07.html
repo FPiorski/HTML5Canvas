@@ -1,0 +1,45 @@
+<head>
+<style>
+#cvs {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+</style>
+</head>
+<body>
+<canvas id="cvs" width=100 height=100></canvas>
+<script>
+var context = document.getElementsByTagName('canvas')[0].getContext('2d');
+fit();
+
+var img = new Image();
+img.onload = function () {
+ context.drawImage(img, context.canvas.width/2-148, context.canvas.height/2-103);
+}
+img.src = "hi.png";
+var ii=0;
+function rot(){
+	context.translate(context.canvas.width/2, context.canvas.height/2);
+	context.rotate(Math.pow(ii,(1/1.01))*Math.PI/180);
+    context.translate(-context.canvas.width/2, -context.canvas.height/2);
+    context.drawImage(img, context.canvas.width/2-395+ii, context.canvas.height/2-306);
+    ii++;
+}
+setInterval(rot,0);
+
+
+//setInterval(blank, 47);
+window.onresize=fit;
+function fit() {
+ context.canvas.width = window.innerWidth;
+ context.canvas.height = window.innerHeight;
+}
+
+ function blank() {
+   context.fillStyle = 'rgba(0,0,0,0.1)';
+   context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+ }
+
+</script>
+</body>

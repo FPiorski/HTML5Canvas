@@ -1,0 +1,60 @@
+<head>
+<style>
+#lel {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+</style>
+</head>
+<body>
+<canvas id="lel" width=1 height=1></canvas>
+<script>
+ var context = document.getElementsByTagName('canvas')[0].getContext('2d');
+
+ context.canvas.width = window.innerWidth;
+ context.canvas.height = window.innerHeight;
+ 
+ var lastX = context.canvas.width * Math.random();
+ var lastY = context.canvas.height * Math.random();
+ var hue = 0;
+ var kk=10,kkk;
+ function line() {
+   context.save();
+   context.translate(context.canvas.width/2, context.canvas.height/2);
+   var i=1.2*Math.random()+0.2;
+   context.scale(i, i);
+   context.translate(-context.canvas.width/2, -context.canvas.height/2);
+   context.beginPath();
+   context.lineWidth = 5 + Math.random() * 10;
+   context.moveTo(lastX, lastY);
+   lastX = context.canvas.width * Math.random();
+   lastY = context.canvas.height * Math.random();
+   context.bezierCurveTo(context.canvas.width * Math.random(),
+                         context.canvas.height * Math.random(),
+                         context.canvas.width * Math.random(),
+                         context.canvas.height * Math.random(),
+                         lastX, lastY);
+
+   hue = hue + 3 * Math.random();
+   context.strokeStyle = 'hsl(' + hue + ', 50%, 50%)';
+   context.shadowColor = 'white';
+   context.shadowBlur = 10;
+   context.stroke();
+   context.restore();
+   setTimeout(line,10/(i));
+ }
+ line();
+ //setInterval(line, 47);
+ function blank() {
+   context.fillStyle = 'rgba(0,0,0,0.1)';
+   context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+ }
+ setInterval(blank, 47);
+window.onresize=function small() {
+ context.canvas.width = window.innerWidth;
+ context.canvas.height = window.innerHeight;
+}
+ setInterval(small, 300);
+</script>
+</body>

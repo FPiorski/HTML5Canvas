@@ -1,0 +1,79 @@
+<head>
+<style>
+#cvs {
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+</style>
+</head>
+<body>
+<canvas id="cvs" width=100 height=100></canvas>
+<script>
+var context = document.getElementsByTagName('canvas')[0].getContext('2d');
+var p=[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
+var p2=[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
+p[0][0]=0;
+fit();
+function step(){
+for (var i=0;i<30;i++)for (var j=0;j<30;j++){
+var n=0;
+if ((i>0)&&(j>0))if (p[i-1][j-1]>=1)n++;
+if (j>0)if (p[i][j-1]>=1)n++;
+if ((i<29)&&(j>0))if (p[i+1][j-1]>=1)n++;
+if (i>0)if (p[i-1][j]>=1)n++;
+if (i<29)if (p[i+1][j]>=1)n++;
+if ((i>0)&&(j<28))if (p[i-1][j+1]>=1)n++;
+if (j<28)if (p[i][j+1]>=1)n++;
+if ((i<28)&&(j<28))if (p[i+1][j+1]>=1)n++;
+if ((((n==3)||(n==2))&&(p[i][j]==1))||((((n==3))&&(p[i][j]==0))))p2[i][j]=1;else p2[i][j]=0;
+//context.fillStyle = 'rgba(255,0,0,1)';
+//context.fillText(n,i*20,j*20);
+}
+draw();
+for (var i=0;i<30;i++)for (var j=0;j<30;j++)p[i][j]=p2[i][j];
+}
+context.font = "15px Arial";
+setInterval(step, 100);
+//setInterval(draw, 100);
+function draw(){
+for (var i=0;i<30;i++)for (var j=0;j<30;j++){
+if (p[i][j]>=1)context.fillStyle = "rgba(255,255,255,0.3)";else context.fillStyle = 'rgba(0,0,0,0.3)';
+context.fillRect(i*20,j*20,20,20);
+}
+}
+
+
+
+
+
+//setInterval(blank, 47);
+
+
+
+
+
+
+
+
+
+
+
+
+window.onresize=fit;
+function fit() {
+if (window.innerHight>window.innerWidth){
+ context.canvas.width = window.innerWidth;
+ context.canvas.height = window.innerWidth;
+}else{
+ context.canvas.width = window.innerHeight;
+ context.canvas.height = window.innerHeight;
+}
+for (var i=0;i<30;i++)for (var j=0;j<30;j++)p[i][j]=Math.floor(2*Math.random());
+}
+ function blank() {
+   context.fillStyle = 'rgba(0,0,0,0.1)';
+   context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+ }
+</script>
+</body>
